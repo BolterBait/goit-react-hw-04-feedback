@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { FeedbackOptions } from '../Feedback/FeedbackOptions';
 import Section from '../Section/Section';
@@ -9,8 +9,8 @@ export default function App() {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [positivePercentage, setPositivePercentage] = useState(0);
+  let total = 0;
+  let positivePercentage = 0;
 
   const handleState = e => {
     const { name } = e.target;
@@ -30,11 +30,8 @@ export default function App() {
     }
   };
 
-  useEffect(() => {
-    let totalSum = good + bad + neutral;
-    setTotal(totalSum);
-    setPositivePercentage(Math.floor((good / total) * 100 || 0));
-  }, [good, neutral, bad, total]);
+  total = good + bad + neutral;
+  positivePercentage = Math.floor((good / total) * 100 || 0);
 
   const keys = ['good', 'neutral', 'bad'];
 
